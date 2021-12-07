@@ -12,20 +12,30 @@ def replacedFullListCompCompute(depth, replaceLeafNode, K):
         comp += depth + num
     print(comp)
     fullListNumber = replaceLeafNode * 2
-    return (depth + 1 + depth + 2 + depth + 3 + depth + 4) * fullListNumber
+    return comp * fullListNumber
 
 
-def notChangedListCompCompute(depth, nodeNotChanged):
-    return (depth + 1 + depth + 2 + depth + 3) * nodeNotChanged
+def notChangedListCompCompute(depth, nodeNotChanged,K):
+    comp = 0
+    for num in range(1, K):
+        print(num)
+        comp += depth + num
+    print(comp)
+    fullListNumber = nodeNotChanged
+    return comp * fullListNumber
 
 
 def leafNodesNumber(total, K):
-    depth = math.floor(math.log((total + 1) * 2 / K + 1, 2))
-    fullTreeNode = 2 ** depth - 1 + (K - 1) * 2 ** (depth - 1)
+    depth = math.floor(math.log((total + 1) * 2 / (K + 1), 2))
+    node1 = (2 ** depth) - 1 + (K - 1) * (2 ** (depth - 1))
+    node2 = (2 ** (depth+1)) - 1 + (K - 1) * (2 ** ((depth+1) - 1))
+    print("node1 : %d" % node1)
+    print("node2 : %d" % node2)
+    fullTreeNode = (2 ** depth) - 1 + (K - 1) * (2 ** (depth - 1))
     leafNode = 2 ** (depth - 1)
-
+    print("leafnode : %d" % leafNode)
     nodeNotAdded = total - fullTreeNode
-
+    print("nodeNotAdded : %d" % nodeNotAdded)
     replaceLeafNode = math.floor(nodeNotAdded / (K + 1))
 
     nodeNotAdded = nodeNotAdded - replaceLeafNode * (K + 1)
@@ -35,8 +45,9 @@ def leafNodesNumber(total, K):
     replacedFullListComp = replacedFullListCompCompute(depth, replaceLeafNode, K)
 
     nodeNotChanged = leafNode - replaceLeafNode - 1
+    print("nodeNotChanged : %d" % nodeNotChanged)
 
-    notChangedListComp = notChangedListCompCompute(depth, nodeNotChanged)
+    notChangedListComp = notChangedListCompCompute(depth, nodeNotChanged,K)
 
     fullNodeComp = 0
     for dep in range(1, depth + 1):
@@ -141,4 +152,7 @@ def bestBinaryTree():
     print("min:", min(totalList), "total binary trees", len(totalList))
 
 
-bestBinaryTree()
+# bestBinaryTree()
+leafNodesNumber(400000,4)
+leafNodesNumber(400000,8)
+leafNodesNumber(400000,16)
