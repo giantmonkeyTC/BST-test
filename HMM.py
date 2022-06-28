@@ -178,7 +178,27 @@ def main():
     print(route_list2)
     print(len(route_list2))
 
+def forward_algorithm(seq, route_seq):
+    ans = 1.0
+    times = len(seq) - 1;
+    for i in range(0, times):
+        if(i != times-1):
+            ans *= route_transition[transition_dict[seq[i]]].trans_dict[seq[i+1]] * route_list[list_dict[seq[i+1]]].route_dict[route_seq[i]]
+        else:
+            ans *= route_transition[transition_dict[seq[i-1]]].trans_dict["e"]
 
+    return ans
+
+def backward_algorithm(seq, route_seq):
+    ans = 1.0
+    times = len(seq) - 1;
+    for i in range(times, -1, -1):
+        if(i != 1):
+            ans *= route_transition[transition_dict[seq[i - 1]]].trans_dict[seq[i]] * route_list[list_dict[seq[i - 1]]].route_dict[route_seq[i-2]]
+        else:
+            ans *= route_transition[transition_dict[seq[i-1]]].trans_dict[seq[i]]
+            break;
+    return ans
 
 
 
