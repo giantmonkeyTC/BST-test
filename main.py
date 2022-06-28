@@ -15,7 +15,7 @@ def replacedFullListCompCompute(depth, replaceLeafNode, K):
     return comp * fullListNumber
 
 
-def notChangedListCompCompute(depth, nodeNotChanged,K):
+def notChangedListCompCompute(depth, nodeNotChanged, K):
     comp = 0
     for num in range(1, K):
         print(num)
@@ -28,7 +28,7 @@ def notChangedListCompCompute(depth, nodeNotChanged,K):
 def leafNodesNumber(total, K):
     depth = math.floor(math.log((total + 1) * 2 / (K + 1), 2))
     node1 = (2 ** depth) - 1 + (K - 1) * (2 ** (depth - 1))
-    node2 = (2 ** (depth+1)) - 1 + (K - 1) * (2 ** ((depth+1) - 1))
+    node2 = (2 ** (depth + 1)) - 1 + (K - 1) * (2 ** ((depth + 1) - 1))
     print("node1 : %d" % node1)
     print("node2 : %d" % node2)
     fullTreeNode = (2 ** depth) - 1 + (K - 1) * (2 ** (depth - 1))
@@ -44,10 +44,10 @@ def leafNodesNumber(total, K):
 
     replacedFullListComp = replacedFullListCompCompute(depth, replaceLeafNode, K)
 
-    nodeNotChanged = leafNode - replaceLeafNode - 1
+    nodeNotChanged = leafNode - replaceLeafNode
     print("nodeNotChanged : %d" % nodeNotChanged)
 
-    notChangedListComp = notChangedListCompCompute(depth, nodeNotChanged,K)
+    notChangedListComp = notChangedListCompCompute(depth, nodeNotChanged, K)
 
     fullNodeComp = 0
     for dep in range(1, depth + 1):
@@ -62,7 +62,7 @@ def leafNodesNumber(total, K):
     print("nodeNotAdded : %d" % nodeNotAdded)
     print("replacedFullListComp : %d" % replacedFullListComp)
     print("notChangedListComp : %d" % notChangedListComp)
-    print("notChangedListComp : %d" % notChangedListComp)
+    print("fullNodeComp : %d" % fullNodeComp)
     print("totalComp = %d" % totalComp)
     print("avgComp = %f" % (totalComp / total))
 
@@ -153,6 +153,6 @@ def bestBinaryTree():
 
 
 # bestBinaryTree()
-leafNodesNumber(400000,4)
-leafNodesNumber(400000,8)
-leafNodesNumber(400000,16)
+leafNodesNumber(400000, 4)
+leafNodesNumber(400000, 8)
+leafNodesNumber(400000, 16)
