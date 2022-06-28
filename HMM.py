@@ -81,10 +81,72 @@ def route_transition_init():
 def main():
     route_list = route_init()
     route_transition = route_transition_init()
+    candidate_dict = {}
     route_seq1= ['d','c','b','a']
     for node in route_seq1:
+        candidate_dict[node] = []
         for r in route_list:
-            if(r.route_dict[node] is not 0.0):
+            if(r.route_dict[node] != 0.0):
+                candidate_dict[node].append(r.id)
+    print(candidate_dict)
+    templist1 = []
+    templist2 = []
+    route_list1 = []
+    route_list2 = []
+    route_list3 = []
+    node_dict={'s01':0,'s02':1,'s13':2,'s14':3,'s15':4,'s56':5,'s26':6,'s37':7,'s48':8,'s68':9}
+    seq_dict={'s':0,'s01':1,'s02':2,'s13':3,'s14':4,'s15':5,'s56':6,'s26':7,'s37':8,'s48':9,'s68':10}
+    print('d->c')
+    for can in candidate_dict['d']:
+        for can2 in candidate_dict['c']:
+            if(route_transition[seq_dict[can]].trans_dict[can2] != 0.0 or can2 == can):
+                print(can,can2)
+                templist1.append(can)
+                templist2.append(can2)
+                route_list1.append([can,can2])
+    candidate_dict['d'].clear()
+    candidate_dict['d'] = templist1.copy()
+    candidate_dict['c'].clear()
+    candidate_dict['c'] = templist2.copy()
+    templist1.clear()
+    templist2.clear()
+    print('c->b')
+    for can1 in route_list1:
+        can = can1[-1]
+        for can2 in candidate_dict['b']:
+            if (route_transition[seq_dict[can]].trans_dict[can2] != 0.0 or can2 == can):
+                print(can, can2)
+                templist1.append(can)
+                templist2.append(can2)
+                route_list2.append(can1+[can2])
+    candidate_dict['c'].clear()
+    candidate_dict['c'] = templist1.copy()
+    candidate_dict['b'].clear()
+    candidate_dict['b'] = templist2.copy()
+    templist1.clear()
+    templist2.clear()
+    print('b->a')
+    for can1 in route_list2:
+        can = can1[-1]
+        for can2 in candidate_dict['a']:
+            if (route_transition[seq_dict[can]].trans_dict[can2] != 0.0 or can2 == can):
+                print(can, can2)
+                templist1.append(can)
+                templist2.append(can2)
+                route_list3.append(can1+[can2])
+    candidate_dict['b'].clear()
+    candidate_dict['b'] = templist1.copy()
+    candidate_dict['a'].clear()
+    candidate_dict['a'] = templist2.copy()
+    templist1.clear()
+    templist2.clear()
+    print(route_list3)
+    print(len(route_list3))
+
+
+
+
+
 
 
 
